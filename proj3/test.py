@@ -5,11 +5,11 @@ from transformers import pipeline, GPT2Tokenizer, GPT2LMHeadModel
 #STEP 2 create task model
 summarizer = pipeline("summarization", model="psyche/KoT5-summarization") #요약모델
 
-model_name = "skt/kogpt2-base-v2"
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-model = GPT2LMHeadModel.from_pretrained(model_name)
-device = 0 if torch.cuda.is_available() else -1
-generator = pipeline('text-generation', model=model, tokenizer=tokenizer, device=device)
+# model_name = "skt/kogpt2-base-v2"
+# tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+# model = GPT2LMHeadModel.from_pretrained(model_name)
+# device = 0 if torch.cuda.is_available() else -1
+# generator = pipeline('text-generation', model=model, tokenizer=tokenizer, device=device)
 
 
 from typing import Union
@@ -40,13 +40,14 @@ async def summary(input_token : Input_token):
     result = summarizer(input_token.body)
     summary_text = result[0]["summary_text"]
 
-    trash_title = generate_clickbait_title(summary_text)
+    # trash_title = generate_clickbait_title(summary_text)
 
     #STEP 5 process the result
     # print(result)
     input_dict.update({"summary" : summary_text})
-    input_dict.update({"trash_title" : trash_title})
+    # input_dict.update({"trash_title" : trash_title})
     return input_dict
+
 
 
 
